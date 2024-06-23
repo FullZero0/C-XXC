@@ -1,0 +1,162 @@
+#include <iostream>
+
+
+int main()
+{
+	using namespace std;
+
+	char mass[8][8];
+
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			cin >> mass[i][j];
+		}
+	}
+	
+	int sum1=0, sum2=0;
+	
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (mass[i][j]=='R')
+			{
+				sum1++;
+				for (int u = j + 1; u < 8; u++)
+				{
+					if (mass[i][u] == '*' || mass[i][u] == '0')
+					{
+						if (mass[i][u] != '0')
+						{
+							mass[i][u] = '0';
+							sum1++;
+						}
+					}
+					else
+						break;
+				}
+					
+				for (int y = j - 1; y >= 0; y--)
+				{
+
+					if (mass[i][y] == '*' || mass[i][y] == '0')
+					{
+						if (mass[i][y] != '0') {
+							mass[i][y] = '0';
+							sum1++;
+						}
+					}
+					else
+						break;
+				}
+
+				for (int u2 = i + 1;  u2 < 8; u2++)
+				{
+					if (mass[u2][j] == '*' || mass[u2][j] == '0')
+					{
+						if (mass[u2][j] != '0') {
+							mass[u2][j] = '0';
+							sum1++;
+						}
+					}
+					else
+						break;
+				}
+
+				for (int y2 = i - 1; y2 >= 0; y2--)
+				{
+					if (mass[y2][j] == '*'|| mass[y2][j] == '0')
+					{
+						if (mass[y2][j] != '0') {
+							mass[y2][j] = '0';
+							sum1++;
+						}
+					}
+					else
+						break;
+					
+				}
+
+			}
+			else if (mass[i][j] =='B')
+			{
+				sum2++;
+				for (int u = j + 1, u2 = i + 1; u < 8,  u2 < 8; u++, u2++)// вниз-вправо
+				{
+					if (u < 8 && u2 < 8 && (mass[u2][u] == '*' || mass[u2][u] == '0'))
+					{
+						if (mass[u2][u] != '0') {
+							mass[u2][u] = '0';
+							sum2++;
+						}
+					}
+					else
+						break;
+				}
+
+				for (int y = j - 1,  y2 = i - 1; y >= 0,  y2 >= 0; y--, y2--)// вверх-влево
+				{
+					if (y >= 0&& y2 >= 0 && (mass[y2][y] == '*' || mass[y2][y] == '0'))
+					{
+						if (mass[y2][y] != '0') {
+							mass[y2][y] = '0';
+							sum2++;
+						}
+					}
+					else
+						break;
+
+				}
+
+				for (int y = j - 1, u2 = i + 1;  y >= 0, u2 < 8; y--, u2++) //вниз-влево
+				{
+					if (y >= 0&& u2 < 8 && (mass[u2][y] == '*' || mass[u2][y] == '0'))
+					{
+						if (mass[u2][y] != '0') {
+							mass[u2][y] = '0';
+							sum2++;
+						}
+					}
+					else
+						break;
+
+				}
+
+				for (int u = j + 1, y2 = i - 1; u < 8, y2 >= 0;  u++, y2--)//вверх-вправо
+				{
+					if (u < 8&& y2 >= 0&& (mass[y2][u] == '*'|| mass[y2][u] == '0') )
+					{
+						if (mass[y2][u] != '0') {
+							mass[y2][u] = '0';
+							sum2++;
+						}
+					}
+					else
+						break;
+
+				}
+			}
+		}
+	}
+
+	cout << 64 - (sum2 + sum1);
+
+	/*cout << '\n'<<"sum "<< sum1;
+
+	cout << '\n' << "sum " << sum2;
+
+	cout << '\n';
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			cout << mass[i][j];
+		}
+		cout << '\n';
+	}*/
+	return 0;
+}

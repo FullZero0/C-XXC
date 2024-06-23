@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cmath>
+
+
+
+long int function( const int& i, int myUnits, int& hp, const int& enemys)
+{
+	int rounds = 0;
+	int enemysBarracks=0;
+	int hpBarracks = hp;
+
+	while(hpBarracks >= i)
+	{
+		if (myUnits <= enemys)
+			return hp + 2;
+		hpBarracks -= (myUnits - enemysBarracks);
+		enemysBarracks = enemys;
+		++rounds;
+	}
+	if (hpBarracks <= 0)
+		return rounds;
+
+	while(hpBarracks>0)
+	{
+		
+		if (myUnits <=0)
+			return hp + 2;
+		++rounds;
+		if (hpBarracks >= myUnits)
+		{
+			hpBarracks -= myUnits;
+			myUnits -= enemysBarracks;
+			if(hpBarracks>0)
+			enemysBarracks += enemys;
+		}
+		else
+		{
+			enemysBarracks -= (myUnits - hpBarracks);
+			myUnits -= enemysBarracks;
+			continue;
+		}
+
+	}
+	while (enemysBarracks > 0)
+	{
+		if (myUnits<=0)
+			return hp + 2;
+		enemysBarracks -= myUnits; 
+		myUnits -= enemysBarracks;
+		++rounds;
+	}
+	return rounds;
+
+}
+
+
+int main()
+{
+	using namespace std;
+	int myUnits, hp, enemys ;
+	cin >> myUnits>> hp>> enemys;
+
+	long int mymin = hp + 2;
+	for (int i = 0; i <= hp+1; i++)
+	{
+		long int min = function(i, myUnits, hp, enemys);
+		mymin =mymin< min ?mymin: min;
+	}
+
+	if (mymin == hp + 2)
+		cout << -1;
+	else
+		cout << mymin;
+	
+	
+}

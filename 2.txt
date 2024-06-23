@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+
+
+int main()
+{
+	using namespace std;
+
+	string Game1,Game2;
+	int val;
+	cin >> Game1 >> Game2>>val;
+
+	int score1Game1, score1Game2, score2Game1, score2Game2;
+
+	score1Game1 = Game1[0] - '0';
+	score1Game2 = Game2[0] - '0';
+	score2Game1 = Game1[2] - '0';
+	score2Game2 = Game2[2] - '0';
+
+
+	if (val == 1)
+	{
+		while (true)
+		{
+			if (score1Game1 == score2Game1 && score1Game2 == score2Game2)
+			{
+				++score1Game2;
+				cout << score1Game2 - (Game2[0] - '0');
+				break;
+			}
+			else if (score1Game1 + score1Game2 == score2Game1 + score2Game2)
+			{
+				if (score1Game2 > score2Game1) {
+					cout << score1Game2 - (Game2[0] - '0');
+					break;
+				}
+				else
+				{
+					cout << ++score1Game2 - (Game2[0] - '0');
+					break;
+				}
+			}
+			else
+				++score1Game2;
+			
+		}
+	}
+	else
+	{
+		while (true)
+		{
+			if (score1Game1 == score2Game1 && score1Game2 == score2Game2)
+			{
+				++score1Game2;
+				cout << score1Game2 - (Game2[0] - '0');
+				break;
+			}
+			else if (score1Game1 + score1Game2 == score2Game1 + score2Game2)
+			{
+				if (score1Game1 > score2Game2) {
+					cout << score1Game2 - (Game2[0] - '0');
+					break;
+				}
+				else
+				{
+					cout << ++score1Game2 - (Game2[0] - '0');
+					break;
+				}
+			}
+			else
+				++score1Game2;
+		}
+	}
+
+	return 0;
+}
+
+

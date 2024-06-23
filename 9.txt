@@ -1,0 +1,150 @@
+#include <iostream>
+#include <cmath>
+#include <map>
+#include <algorithm>
+#include <string>
+
+int isLeap(int year) {
+	setlocale(LC_ALL, "Russian");
+	return ((year % 100 == 0) ? (year % 400 == 0) : (year % 4 == 0)) ? 366 : 365;
+}
+
+
+int ValueDay(int &x, std:: string &str, int YearDays)
+{
+	std::map<std::string, int> Mymap;
+	Mymap.emplace("January", 0);
+	Mymap.emplace("February",31 );
+	Mymap.emplace("March", 60);
+	Mymap.emplace("April", 91);
+	Mymap.emplace("May", 121 );
+	Mymap.emplace("June",152 );
+	Mymap.emplace("July",182 );
+	Mymap.emplace("August",213);
+	Mymap.emplace("September",244);
+	Mymap.emplace("October",274);
+	Mymap.emplace("November",305);
+	Mymap.emplace("December",335);
+
+	if ((YearDays == 365) && str != "January" && str != "February")
+		return Mymap.at(str) + x - 1;
+	else
+		return Mymap.at(str) + x;
+}
+
+
+int main()
+{
+	using namespace std;
+
+	int HappyDay;
+	int currentYear;
+	/*int** MassDayte = new int*[HappyDay];
+	for (int i = 0; i < HappyDay; ++i)
+		MassDayte[i] = new int[2];*/
+
+	cin >> HappyDay;
+	int *MassDayte = new int[HappyDay];
+	string* MassDaytestr = new string[HappyDay];
+
+	string Day;
+
+	
+	cin >> currentYear;
+
+	for (int i = 0; i < HappyDay; ++i) {
+	cin>>MassDayte[i];
+	cin >> MassDaytestr[i];
+	}
+
+	/*for (int i = 0; i < HappyDay; ++i) {
+		for (int j = 0; j < HappyDay; ++j)
+		{
+			MassDayte[i][j];
+		}	
+
+	}*/
+	cin >> Day;
+
+	/*cout << HappyDay << " " << currentYear << " ";
+
+	for (int i = 0; i < HappyDay; ++i) {
+		cout << MassDayte[i]<<" ";
+		cout << MassDaytestr[i] << " ";
+	}
+	cout << Day;
+	
+	cout << '\n' << isLeap(currentYear);*/
+
+
+
+	int *massValueDay= new int [currentYear];
+
+	int YearDays =isLeap(currentYear);
+
+	for (int i = 0; i < HappyDay; i++)
+	{
+		massValueDay[i] = ValueDay(MassDayte[i], MassDaytestr[i], YearDays);
+	}
+
+	/*cout << '\n';
+	for (int i = 0; i < HappyDay; ++i) {
+		cout << massValueDay[i] << " ";
+	}*/
+
+	int min=367, max=-1,dayWeek;
+	string minstr, maxstr;
+	std::string mass[7]{"Monday","Tuesday","Wednesday","Thursday","Friday" ,"Saturday","Sunday"};
+	int value,value2;
+
+	for (int i = 0; i < 7; i++)
+	{
+		if (mass[i] == Day)
+		{
+			value = i+1;
+			break;
+		}
+	}
+
+	/*cout << '\n';*/
+	for (int i = 0; i < 7; i++)
+	{
+		
+		value2 = i+1;
+		int counter = 0;
+		while (value2<= YearDays)
+		{
+			++counter;
+			for (int j = 0; j < HappyDay; j++)
+			{
+				if (massValueDay[j] == value2) {
+					--counter;
+					break;
+				}
+			}
+			value2 += 7;
+		}
+
+		int masVal = value;
+		if (value > 7)
+		{
+			masVal = value - 7;
+		}
+		
+		if (min > counter)
+		{
+			min = counter;
+			minstr = mass[masVal -1];
+		}
+		if (max < counter)
+		{
+			max = counter;
+			maxstr = mass[masVal - 1];
+		}
+		
+		/*cout << minstr << " " << maxstr<<'\n';
+		cout << min << " " << max << '\n';*/
+			++value;
+	}
+	cout << maxstr << " " <<minstr ;
+}

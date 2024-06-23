@@ -1,0 +1,38 @@
+#include <iostream>
+
+
+
+int main()
+{
+
+    using namespace std;
+
+     int n, k, d;
+
+    cin >> n >> k >> d;
+
+
+    for (int i = 1; i <= d; ++i)
+    {
+        bool del = false;
+        for (int j = 0; j < 10; ++j)
+        {
+            if ((n * 10 + j) % k == 0)
+            {
+                n = n * 10 + j;
+                del = true;
+                break;
+            }
+        }
+        if (del == false)
+        {
+            cout << -1;
+            return 0;
+        }
+    }
+    std::cout << n;
+  
+    
+
+    return 0;
+}
